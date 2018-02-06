@@ -1,4 +1,5 @@
 from main import db
+from flask_validator import ValidateInteger, ValidateString, ValidateEmail
 
 class Article(db.Model):
     __tablename__ = 'articles'
@@ -10,3 +11,7 @@ class Article(db.Model):
 
     def __repr__(self):
         return '<Article %r>' % self.title
+
+    @classmethod
+    def __declare_last__(cls):
+    	ValidateString(Article.title, False, False, "Aww")

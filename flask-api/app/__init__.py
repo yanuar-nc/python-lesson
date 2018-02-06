@@ -14,4 +14,4 @@ def response(data, status_code=200, status_message=None):
 		'data': data,
 	}
 
-	return result
+	return result, status_code

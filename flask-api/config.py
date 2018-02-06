@@ -8,6 +8,7 @@ class Config(object):
     SECRET_KEY = 'this-really-needs-to-be-changed'
     SQLALCHEMY_DATABASE_URI = 'mysql://root@localhost/flask_api'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    POSTS_PER_PAGE = 10
 
 class ProductionConfig(Config):
     DEBUG = False
