@@ -10,11 +10,11 @@ class Index(Resource):
 		
 		page = request.args.get('page', 1, type=int)
 
-		articles = Article.query.paginate(page, app.config['POSTS_PER_PAGE'], False).items
+		articles = Article.query.paginate(page, app.config['POSTS_PER_PAGE'], False)
 		
 		data_all = []
 
-		for article in articles:
+		for article in articles.items:
 			result = {
 				'id': article.id,
 				'title': article.title,
@@ -22,7 +22,15 @@ class Index(Resource):
 			}
 			data_all.append(result)
 
-		return response(data_all)
+		result = {
+			'pagination': {
+				'current': articles.page,
+				'total_pages': articles.pages,
+				'total_items': articles.total,
+			},
+			'articles': data_all
+		};
+		return response(result)
 
 class Detail(Resource):
 	def get(self, article_id):
@@ -48,7 +56,7 @@ class Insert(Resource):
 		form = ArticleForm(data)
 		if form.validate():
 			new_article = Article(
-				title=1231, 
+				title=data['title'], 
 				content=data['content'], 
 				post_date=data['post_date']
 			)

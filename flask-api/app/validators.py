@@ -8,7 +8,6 @@ from wtforms import Form, \
 class Validator(Form):
 
 	def get_error_messages(self):
-		message = []
 		return self.errors;
 		# for field_name, error_messages in form_data:
 		# 	for err in error_messages:
@@ -16,6 +15,9 @@ class Validator(Form):
 		# return message
 
 class ArticleForm(Validator):
-	title = StringField('Title', [validators.Length(min=4, max=25)])
+	title = StringField('Title', [
+		validators.Length(min=4, max=25),
+		validators.DataRequired()
+	])
 	content = StringField('Content', [validators.DataRequired()])
 	post_date = DateTimeField('Date', [validators.DataRequired()])
